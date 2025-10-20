@@ -34,7 +34,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ResponseEntity<ProductoResponse> productoDatosGson() {
         // ✅ Endpoint a consumir
-        String url = "https://localhost:7127/api/Prenda";
+        String url = "http://localhost:5147/api/Prenda";
 
         // Obtenemos la respuesta inicial
         RawProductoResponse body = restTemplate.getForObject(url, RawProductoResponse.class);
@@ -44,7 +44,7 @@ public class ProductoServiceImpl implements ProductoService {
             ProductoResponse response = new ProductoResponse(
                     String.valueOf(HttpStatus.NOT_FOUND.value()),
                     null,
-                    Collections.emptyList()
+                    Collections.<ProductoDTO>emptyList()
             );
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
@@ -67,8 +67,8 @@ public class ProductoServiceImpl implements ProductoService {
                         int cantidad = nodo.path("cantidad").asInt();
                         double precio = nodo.path("precio").asDouble();
 
-                        String cantidadDesc = stockDisponible(cantidad);
-                        productos.add(new ProductoDTO(nombre, marca, cantidadDesc, precio));
+                        String cantidadDescripcion = stockDisponible(cantidad);
+                        productos.add(new ProductoDTO(nombre, marca, cantidadDescripcion, precio));
                     }
                 }
             }

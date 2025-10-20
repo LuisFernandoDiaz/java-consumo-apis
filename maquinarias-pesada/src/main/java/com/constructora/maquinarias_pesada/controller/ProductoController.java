@@ -18,7 +18,7 @@ public class ProductoController {
     public ProductoService productoService;
 
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<ProductoResponse> allEmpleado(){
         try{
             return productoService.productoDatosGson();
